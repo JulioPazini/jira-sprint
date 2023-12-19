@@ -1,9 +1,10 @@
 import pandas as pd
-from tkinter import messagebox, filedialog
+from tkinter import messagebox, filedialog, PhotoImage
 import requests
 import json
 import csv
 from ttkbootstrap.constants import *
+from ttkbootstrap.tooltip import ToolTip
 import ttkbootstrap as tb
 import os
 
@@ -172,6 +173,8 @@ def open_config_window():
     username_label = tb.Label(config_window, text=" Jira Username:", font=('Helvetica', 12), bootstyle='default')
     username_label.pack(pady=5)
 
+    ToolTip(username_label, text="Enter your Jira username")
+
     username_entry = tb.Entry(config_window, width=30, font=('Helvetica', 12), bootstyle='info')
     username_entry.pack(pady=5)
     username_entry.insert(0, config_data["username"])
@@ -179,13 +182,17 @@ def open_config_window():
     token_label = tb.Label(config_window, text="Jira API Token:", font=('Helvetica', 12), bootstyle='default')
     token_label.pack(pady=5)
 
+    ToolTip(token_label, text="Enter your Jira API token")
+
     token_entry = tb.Entry(config_window, show="*", width=30, font=('Helvetica', 12), bootstyle='info')
     token_entry.pack(pady=5)
     token_entry.insert(0, config_data["api_token"])
 
     # Output File
-    output_label = tb.Label(config_window, text="Output File:", font=('Helvetica', 12), bootstyle='default')
+    output_label = tb.Label(config_window, text="Output Path:", font=('Helvetica', 12), bootstyle='default')
     output_label.pack(pady=5)
+
+    ToolTip(output_label, text="Select the folder where the output file will be saved")
 
     output_entry = tb.Entry(config_window, width=30, font=('Helvetica', 12), bootstyle='info')
     output_entry.pack(pady=5)
@@ -229,15 +236,21 @@ def delete_file(file_path):
         print(f"An error occurred: {e}")
 
 
-root = tb.Window(themename='journal')
+icon_path = os.path.join(base_dir, 'icon.png')
 
 # Main window
-root.title("Sprint Processor")
-root.geometry("400x350")
-root.resizable(False, False)
+root = tb.Window(
+    title= "Sprint Processor", 
+    themename='journal', 
+    iconphoto=icon_path, 
+    resizable=(False, False), 
+    size=(400, 350)
+    )
 
 sprint_label = tb.Label(root, text="Jira Sprint ID:", font=('Helvetica', 14), bootstyle='default')
 sprint_label.pack(pady=10)
+
+ToolTip(sprint_label, text="Enter the Jira Sprint ID")
 
 sprint_entry = tb.Entry(root, font=('Helvetica', 12), bootstyle='dark')
 sprint_entry.pack(pady=10)
