@@ -1,5 +1,5 @@
 import pandas as pd
-from tkinter import messagebox, filedialog, PhotoImage
+from tkinter import messagebox, filedialog
 import requests
 import json
 import csv
