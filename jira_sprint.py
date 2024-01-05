@@ -152,6 +152,12 @@ def filter_excel_file(response):
     result_label.config(text="Tickets retrieved!")
 
 
+def print_start_proccess():
+    result_label.config(text="Generating spreadsheet...", font=('Helvetica', 14), bootstyle='info')
+
+    root.after(2000, process_sprint)
+
+
 def process_sprint():
     get_tickets()
     process_excel_file()
@@ -255,10 +261,10 @@ ToolTip(sprint_label, text="Enter the Jira Sprint ID")
 sprint_entry = tb.Entry(root, font=('Helvetica', 12), bootstyle='dark')
 sprint_entry.pack(pady=10)
 
-process_button = tb.Button(root, text="Start", bootstyle='success-outline', command=process_sprint)
+process_button = tb.Button(root, text="Start", bootstyle='success-outline', command=print_start_proccess)
 process_button.pack(pady=10)
 
-result_label = tb.Label(root, text="", font=('Helvetica', 12))
+result_label = tb.Label(root, text="", font=('Helvetica', 14))
 result_label.pack(pady=10)
 
 config_button = tb.Button(root, text="Config.", bootstyle='secondary-outline', command=open_config_window)
